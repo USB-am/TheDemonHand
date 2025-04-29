@@ -9,6 +9,20 @@
 	outline: none;
 }
 
+body {
+	background-image: url('../img/map/table.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+main {
+	background-image: url('../img/map/11.png');
+	background-repeat: no-repeat;
+	background-size: 125% 125%;
+	background-position: 50% -15%;
+}
+
 .top-panel, .bottom-panel {
 	width: 100%;
 	height: 50vh;
@@ -51,8 +65,8 @@
 }
 
 .enemy-image {
-	width: 450px;
-	height: 300px;
+	width: 400px;
+	height: 250px;
 }
 
 .card-detail {
@@ -73,6 +87,7 @@
 }
 
 .bottom-panel {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -107,6 +122,39 @@
 
 .card-suit {
 	right: 0;
+}
+
+.buttons-continer {
+	position: absolute;
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
+	bottom: 10%;
+}
+
+.button {
+	cursor: pointer;
+}
+
+.reset-button {
+	width: 140px;
+	height: 60px;
+}
+
+.attack-button {
+	width: 140px;
+	height: 60px;
+}
+
+.combo-title {
+	position: absolute;
+	/*width: 100%;*/
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+	font-weight: bold;
+	font-size: 30px;
+	font-family: 'Arial', sans-serif;
 }
 
 .runes-container {
