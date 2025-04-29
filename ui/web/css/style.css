@@ -1,0 +1,119 @@
+:root {
+	--transform-scale: 1.015;
+	--transition-sec: .2s;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+.top-panel, .bottom-panel {
+	width: 100%;
+	height: 50vh;
+	position: relative;
+}
+
+.top-panel {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.manual-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 350px;
+}
+
+.manual-img {
+	width: 200px;
+	height: 300px;
+	cursor: pointer;
+	transition: var(--transition-sec);
+}
+.manual-img:hover {
+	transition: var(--transition-sec);
+	transform: scale(var(--transform-scale));
+}
+
+.enemy-block {
+	position: relative;
+	cursor: pointer;
+	transition: var(--transition-sec);
+}
+.enemy-block:hover {
+	transition: var(--transition-sec);
+	transform: scale(var(--transform-scale));
+}
+
+.enemy-image {
+	width: 450px;
+	height: 300px;
+}
+
+.card-detail {
+	position: absolute;
+	height: 50px;
+	bottom: 5px;
+	font-size: 26px;
+	font-family: Arial, sans-serif;
+	font-weight: bold;
+}
+
+.enemy-damage {
+	left: 30px;
+}
+
+.enemy-hp {
+	right: 30px;
+}
+
+.bottom-panel {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.cards-list {
+	display: flex;
+}
+
+.card {
+	position: relative;
+	transition: var(--transition-sec);
+	cursor: pointer;
+	margin-right: 10px;
+}
+.card:hover {
+	transition: var(--transition-sec);
+	transform: scale(var(--transform-scale));
+}
+.card:last-child {
+	margin-right: 0;
+}
+
+.card-img {
+	width: 90px;
+	height: 145px;
+}
+
+.card-damage {
+	left: 0px;
+}
+
+.card-suit {
+	right: 0;
+}
+
+.runes-container {
+	position: absolute;
+	right: 0;
+	top: 12.5vh;
+	width: 150px;
+	height: 75vh;
+	background: lightgreen;
+}
