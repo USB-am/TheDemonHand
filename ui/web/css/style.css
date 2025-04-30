@@ -148,7 +148,6 @@ main {
 
 .combo-title {
 	position: absolute;
-	/*width: 100%;*/
 	text-transform: uppercase;
 	text-align: center;
 	color: #fff;
@@ -162,6 +161,30 @@ main {
 	right: 0;
 	top: 12.5vh;
 	width: 150px;
-	height: 75vh;
-	background: lightgreen;
+	height: 450px;
+	background-image: url('../img/runes/rune_board.png');
+	background-position: right;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+}
+
+.runes-list {
+	display: flex;
+	flex-direction: column;
+	margin-top: 40px;
+	width: 35px;
+	align-items: flex-end;
+}
+
+.rune {
+	text-align: right;
+	margin-right: 17px;
+	cursor: pointer;
+/*	width: 35px;
+	height: 45px;
+*/}
+
+.rune-image {
+	width: 35px;
+	height: 45px;
 }
