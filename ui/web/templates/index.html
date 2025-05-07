@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="ru">
+{% extends "base.html" %}
 
-<head>
-	<title>The Demon's Hand</title>
-
-	<meta charset="utf-8">
-
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-
-	<script type="text/javascript" src="/eel.js"></script>
-</head>
-
-<body>
+{% block content %}
 	<main>
 
 		<!-- TOP PANEL -->
 		<div class="top-panel">
 			<div class="manual-container">
-				<img src="img/table/manual.png" class="manual-img">
+				<img src="../img/table/manual.png" class="manual-img">
 			</div>
 
 			<div class="enemy-container">
@@ -27,7 +16,7 @@
 				</div>
 
 				<div class="enemy-block">
-					<img src="img/enemy/bison.png" class="enemy-image">
+					<img src="../img/enemy/bison.png" class="enemy-image">
 					<span class="enemy-damage card-detail">3</span>
 					<span class="enemy-hp card-detail">280</span>
 				</div>
@@ -40,49 +29,49 @@
 			<div class="cards-list">
 
 				<div class="card">
-					<img src="img/cards/2.png" class="card-img">
+					<img src="../img/cards/2.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/3.png" class="card-img">
+					<img src="../img/cards/3.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/4.png" class="card-img">
+					<img src="../img/cards/4.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/5.png" class="card-img">
+					<img src="../img/cards/5.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/10.png" class="card-img">
+					<img src="../img/cards/10.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/11.png" class="card-img">
+					<img src="../img/cards/11.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/12.png" class="card-img">
+					<img src="../img/cards/12.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
 				<div class="card">
-					<img src="img/cards/13.png" class="card-img">
+					<img src="../img/cards/13.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
@@ -91,13 +80,13 @@
 			<div class="buttons-continer">
 
 				<div class="button">
-					<img src="img/table/reset_button.png" class="reset-button">
+					<img src="../img/table/reset_button.png" class="reset-button">
 				</div>
 
 				<p class="combo-title">600<br>Combo title</p>
 
 				<div class="button">
-					<img src="img/table/attack_button.png" class="attack-button">
+					<img src="../img/table/attack_button.png" class="attack-button">
 				</div>
 
 			</div>
@@ -108,11 +97,20 @@
 		<div class="runes-container">
 			<div class="runes-list">
 				<div class="rune">
-					<img src="img/runes/damage_rune_1.png" class="rune-image">
+					<img src="../img/runes/damage_rune_1.png" class="rune-image">
 				</div>
 			</div>
 		</div>
 
 	</main>
-</body>
-</html>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		let selected_cards = [];
+
+		function select_card(card) {
+			
+		}
+	</script>
+{% endblock %}
