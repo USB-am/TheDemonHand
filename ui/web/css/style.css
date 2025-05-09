@@ -95,6 +95,7 @@ main {
 
 .cards-list {
 	display: flex;
+	position: relative;
 }
 
 .card {
@@ -109,6 +110,10 @@ main {
 }
 .card:last-child {
 	margin-right: 0;
+}
+
+.selected {
+	bottom: 10px;
 }
 
 .card-img {

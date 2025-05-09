@@ -28,7 +28,7 @@
 		<div class="bottom-panel">
 			<div class="cards-list">
 
-				<div class="card">
+				<div class="card" onclick="select_card(this)" damage="2" suit="sun">
 					<img src="../img/cards/2.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
@@ -110,7 +110,19 @@
 		let selected_cards = [];
 
 		function select_card(card) {
-			
+
+			if (selected_cards.length < 5) {
+				if (card.classList.contains('selected')) {
+					card.classList.remove('selected');
+				} else {
+					selected_cards.push({
+						'damage': card.getAttribute('damage'),
+						'suit': card.getAttribute('suit')
+					});
+					card.classList.add('selected');
+				}
+			}
+			console.log(selected_cards);
 		}
 	</script>
 {% endblock %}
