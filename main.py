@@ -5,6 +5,7 @@ from typing import List, Generator
 
 import cards as Card
 import combos as Combo
+from ui import run_ui
 
 
 class Rune:
@@ -103,7 +104,9 @@ if __name__ == '__main__':
 	]
 	combo = Combo.get_combo(cards)
 	damage = calc(combo, runes)
-	print(f'Bison.hp = {bison.hp}')
-	print(f'Damage = {damage}')
+	# print(f'Bison.hp = {bison.hp}')
+	# print(f'Damage = {damage}')
 	bison.hp -= damage
-	print(f'Bison.hp = {bison.hp}')
+	# print(f'Bison.hp = {bison.hp}')
+
+	# run_ui()
