@@ -2,7 +2,7 @@ from typing import List, Dict
 
 import eel
 
-from combos import get_combo
+from combos import get_combo, Empty
 from cards import Power, Suit, Card
 
 
@@ -24,6 +24,9 @@ def get_combo_title(cards: List[Dict]) -> str:
 		))
 
 	combo = get_combo(card_objs)
+
+	if isinstance(combo, Empty):
+		return {'title': '', 'power': ''}
 
 	return {'title': combo.title, 'power': combo.power}
 

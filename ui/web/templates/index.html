@@ -107,24 +107,44 @@
 
 {% block scripts %}
 	<script type="text/javascript">
+		const MAX_SELECTED = 5;
 		let selected_cards = [];
 
-		async function select_card(card) {
+		const updateSelection = (card) => {
+			card.classList.toggle('selected');
+		};
 
-			if (selected_cards.length < 5) {
-				if (card.classList.contains('selected')) {
-					card.classList.remove('selected');
+		function convert_card_div_to_dict(cards) {
+			let output = [];
+
+			for (let card of cards) {
+				output.push({
+					'power': card.getAttribute('power'),
+					'suit': card.getAttribute('suit')
+				});
+			}
+
+			return output
+		}
+
+		async function select_card(card) {
+			const is_selected = card.classList.contains('selected');
+
+			if (is_selected) {
+				updateSelection(card);
+				selected_cards = selected_cards.filter(selected_card => selected_card !== card);
+			} else {
+				if (selected_cards.length < MAX_SELECTED) {
+					updateSelection(card);
+					selected_cards.push(card)
 				} else {
-					selected_cards.push({
-						'power': card.getAttribute('power'),
-						'suit': card.getAttribute('suit')
-					});
-					card.classList.add('selected');
+					alert(`Можно выбрать максимум ${MAX_SELECTED} карт`);
 				}
 			}
 
 			let combo_title_p = document.getElementById('combo-title');
-			let combo = await eel.get_combo_title(selected_cards)();
+			let cards_dict = convert_card_div_to_dict(selected_cards);
+			const combo = await eel.get_combo_title(cards_dict)();
 			combo_title_p.innerHTML = `${combo['power']}<br>${combo['title']}`;
 		}
 	</script>

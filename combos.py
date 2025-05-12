@@ -181,6 +181,11 @@ class Combo:
 		self.cards = cards
 
 
+class Empty(Combo):
+	power = 0
+	title = ''
+
+
 class Solo(Combo):
 	power = 0
 	title = 'Одиночка'
@@ -230,6 +235,7 @@ COMBO_PRIORITY = (
 	(is_double_duo, get_double_duo_cards, DoubleDuo),
 	(is_duo, get_duo_cards, Duo),
 	(None, None, Solo),
+	(None, None, Empty),
 )
 
 
@@ -248,8 +254,11 @@ def get_combo(cards: List[Card]) -> Combo:
 	''' Получить из выбранных карт лучшее кобмо '''
 
 	if not is_combo(cards):
-		max_card = max(cards, key=lambda c: c.power.value)
-		return Solo([max_card,])
+		try:
+			max_card = max(cards, key=lambda c: c.power.value)
+			return Solo([max_card,])
+		except ValueError:
+			return Empty([])
 
 	for is_func, get_cards_func, combo_cls in COMBO_PRIORITY:
 		if is_func(cards):
