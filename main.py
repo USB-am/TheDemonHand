@@ -109,4 +109,4 @@ if __name__ == '__main__':
 	bison.hp -= damage
 	# print(f'Bison.hp = {bison.hp}')
 
-	# run_ui()
+	run_ui()

@@ -28,49 +28,49 @@
 		<div class="bottom-panel">
 			<div class="cards-list">
 
-				<div class="card" onclick="select_card(this)" damage="2" suit="sun">
+				<div class="card" onclick="select_card(this)" power="two" suit="sun">
 					<img src="../img/cards/2.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="3" suit="moon">
+				<div class="card" onclick="select_card(this)" power="three" suit="moon">
 					<img src="../img/cards/3.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="4" suit="fire">
+				<div class="card" onclick="select_card(this)" power="four" suit="fire">
 					<img src="../img/cards/4.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="5" suit="stone">
+				<div class="card" onclick="select_card(this)" power="five" suit="stone">
 					<img src="../img/cards/5.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="10" suit="sun">
+				<div class="card" onclick="select_card(this)" power="ten" suit="sun">
 					<img src="../img/cards/10.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="10" suit="moon">
+				<div class="card" onclick="select_card(this)" power="ten" suit="moon">
 					<img src="../img/cards/11.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="10" suit="stone">
+				<div class="card" onclick="select_card(this)" power="ten" suit="stone">
 					<img src="../img/cards/12.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
 
-				<div class="card" onclick="select_card(this)" damage="10" suit="sun">
+				<div class="card" onclick="select_card(this)" power="ten" suit="sun">
 					<img src="../img/cards/13.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
@@ -83,7 +83,7 @@
 					<img src="../img/table/reset_button.png" class="reset-button">
 				</div>
 
-				<p class="combo-title">600<br>Combo title</p>
+				<p id="combo-title" class="combo-title">600<br>Combo title</p>
 
 				<div class="button">
 					<img src="../img/table/attack_button.png" class="attack-button">
@@ -109,20 +109,23 @@
 	<script type="text/javascript">
 		let selected_cards = [];
 
-		function select_card(card) {
+		async function select_card(card) {
 
 			if (selected_cards.length < 5) {
 				if (card.classList.contains('selected')) {
 					card.classList.remove('selected');
 				} else {
 					selected_cards.push({
-						'damage': card.getAttribute('damage'),
+						'power': card.getAttribute('power'),
 						'suit': card.getAttribute('suit')
 					});
 					card.classList.add('selected');
 				}
 			}
-			console.log(selected_cards);
+
+			let combo_title_p = document.getElementById('combo-title');
+			let combo = await eel.get_combo_title(selected_cards)();
+			combo_title_p.innerHTML = `${combo['power']}<br>${combo['title']}`;
 		}
 	</script>
 {% endblock %}

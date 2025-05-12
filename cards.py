@@ -16,7 +16,7 @@ class Power(enum.Enum):
 	''' Мощь карты '''
 
 	two = 2
-	tree = 3
+	three = 3
 	four = 4
 	five = 5
 	six = 6
