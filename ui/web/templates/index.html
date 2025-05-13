@@ -26,8 +26,9 @@
 
 		<!-- BOTTOM PANEL -->
 		<div class="bottom-panel">
-			<div class="cards-list">
+			<div id="cards-list" class="cards-list">
 
+				<!--
 				<div class="card" onclick="select_card(this)" power="two" suit="sun">
 					<img src="../img/cards/2.png" class="card-img">
 					<span class="card-damage card-detail"> </span>
@@ -75,6 +76,7 @@
 					<span class="card-damage card-detail"> </span>
 					<span class="card-suit card-detail"> </span>
 				</div>
+				-->
 			</div>
 
 			<div class="buttons-continer">
@@ -147,5 +149,24 @@
 			const combo = await eel.get_combo_title(cards_dict)();
 			combo_title_p.innerHTML = `${combo['power']}<br>${combo['title']}`;
 		}
+	</script>
+
+	<script type="text/javascript" src="../scripts/cards.js"></script>
+
+	<script type="text/javascript" defer>
+		const cards_list_block = document.getElementById('cards-list');
+
+		for (let i=0; i<=8; i++) {
+			const new_card = draw_card_from_deck();
+			new_card.then((result) => {
+				cards_list_block.innerHTML += `
+					<div class="card" onclick="select_card(this)" power="${result['power']}" suit="${result['suit']}">
+						<img src="${result['img']}" class="card-img">
+						<span class="card-damage card-detail"> </span>
+						<span class="card-suit card-detail"> </span>
+					</div>`;
+			});
+		}
+
 	</script>
 {% endblock %}

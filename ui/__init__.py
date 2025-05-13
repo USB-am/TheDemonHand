@@ -1,4 +1,5 @@
 from typing import List, Dict
+from json import dumps
 
 import eel
 
@@ -29,6 +30,17 @@ def get_combo_title(cards: List[Dict]) -> str:
 		return {'title': '', 'power': ''}
 
 	return {'title': combo.title, 'power': combo.power}
+
+
+@eel.expose
+def draw_card_from_deck() -> Dict:
+	''' Вытащить карту из колоды '''
+
+	return {
+		'img': '../img/cards/10.png',
+		'power': '10',
+		'suit': 'sun',
+	}
 
 
 def run_ui():
