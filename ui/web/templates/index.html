@@ -162,8 +162,8 @@
 				cards_list_block.innerHTML += `
 					<div class="card" onclick="select_card(this)" power="${result['power']}" suit="${result['suit']}">
 						<img src="${result['img']}" class="card-img">
-						<span class="card-damage card-detail"> </span>
-						<span class="card-suit card-detail"> </span>
+						<span class="card-damage card-detail">${result['power']}</span>
+						<span class="card-suit card-detail">${result['suit']}</span>
 					</div>`;
 			});
 		}

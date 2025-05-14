@@ -54,24 +54,6 @@ class Bison(Enemy):
 	damage = 8
 
 
-class Deck:
-	''' Колода карт '''
-
-	def __init__(self):
-		self.all_cards = gen_cards()
-		self.now_cards = self.all_cards[:]
-
-	def get_card(self) -> Generator:
-		''' Достать карту из колоды '''
-
-		shuffle_deck = random.shuffle(self.all_cards)	# Update
-		for card in shuffle_deck:
-			self.now_cards.remove(card)
-			yield card
-
-		self.now_cards = self.all_cards
-
-
 class Table:
 	def __init__(self):
 		self.hand: List[Card.Card] = []

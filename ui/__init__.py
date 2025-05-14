@@ -5,9 +5,20 @@ import eel
 
 from combos import get_combo, Empty
 from cards import Power, Suit, Card
+from deck import Deck
 
 
 eel.init('ui/web')
+DECK = Deck()
+
+
+def get_card() -> Card:
+	''' Вытащить карту из колоды '''
+
+	while True:
+		card_drawer = DECK.get_card()
+		for card in card_drawer:
+			yield card
 
 
 @eel.expose
@@ -36,10 +47,12 @@ def get_combo_title(cards: List[Dict]) -> str:
 def draw_card_from_deck() -> Dict:
 	''' Вытащить карту из колоды '''
 
+	next_card = next(get_card())
+
 	return {
 		'img': '../img/cards/10.png',
-		'power': '10',
-		'suit': 'sun',
+		'power': next_card.power.name,
+		'suit': next_card.suit.name,
 	}
 
 
