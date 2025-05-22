@@ -8,21 +8,6 @@ import combos as Combo
 from ui import run_ui
 
 
-class Rune:
-	def __call__(self, combo: List[Card.Card]) -> int:
-		return 0
-
-
-class StoneDamageRune(Rune):
-	def __call__(self, combo: List[Card.Card]) -> int:
-		damage = 0
-		for card in combo:
-			if card.suit == Card.Suit.stone:
-				damage += 10
-
-		return damage
-
-
 class Enemy:
 	def attack(self) -> int:
 		return self.damage
@@ -60,35 +45,23 @@ class Table:
 		self.runes: List[Rune] = []
 
 
-def calc(combo: Combo.Combo, runes: List[Rune]) -> int:
-	result = combo.power
-
-	for card in combo.cards:
-		result += int(card.power.value)
-
-	for rune in runes:
-		result += rune(combo.cards)
-
-	return result
-
-
 if __name__ == '__main__':
-	all_cards = Card.gen_cards()
-	runes = [StoneDamageRune(),]
+	# all_cards = Card.gen_cards()
+	# runes = [StoneDamageRune(),]
 
-	bison = Bison()
+	# bison = Bison()
 
-	cards = [
-		Card.Card(suit=Card.Suit.stone, power=Card.Power.general),
-		Card.Card(suit=Card.Suit.fire, power=Card.Power.general),
-		Card.Card(suit=Card.Suit.moon, power=Card.Power.general),
-		Card.Card(suit=Card.Suit.sun, power=Card.Power.general),
-	]
-	combo = Combo.get_combo(cards)
-	damage = calc(combo, runes)
+	# cards = [
+	# 	Card.Card(suit=Card.Suit.stone, power=Card.Power.general),
+	# 	Card.Card(suit=Card.Suit.fire, power=Card.Power.general),
+	# 	Card.Card(suit=Card.Suit.moon, power=Card.Power.general),
+	# 	Card.Card(suit=Card.Suit.sun, power=Card.Power.general),
+	# ]
+	# combo = Combo.get_combo(cards)
+	# damage = calc(combo, runes)
 	# print(f'Bison.hp = {bison.hp}')
 	# print(f'Damage = {damage}')
-	bison.hp -= damage
+	# bison.hp -= damage
 	# print(f'Bison.hp = {bison.hp}')
 
 	run_ui()

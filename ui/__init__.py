@@ -12,6 +12,15 @@ eel.init('ui/web')
 DECK = Deck()
 
 
+def card_dict_to_obj(card: Dict) -> Card:
+	''' Конвертивароть список с данными о карте в объект карты '''
+
+	power = Power[card['power']]
+	suit = Suit[card['suit']]
+
+	return Card(suit=suit, power=power)
+
+
 def get_card() -> Card:
 	''' Вытащить карту из колоды '''
 
@@ -25,16 +34,7 @@ def get_card() -> Card:
 def get_combo_title(cards: List[Dict]) -> str:
 	''' Получить название комбо по картам '''
 
-	card_objs: List[Card] = []
-
-	for card in cards:
-		power = Power[card['power']]
-		suit = Suit[card['suit']]
-		card_objs.append(Card(
-			power=power,
-			suit=suit
-		))
-
+	card_objs = [card_dict_to_obj(card) for card in cards]
 	combo = get_combo(card_objs)
 
 	if isinstance(combo, Empty):
@@ -54,6 +54,14 @@ def draw_card_from_deck() -> Dict:
 		'power': next_card.power.name,
 		'suit': next_card.suit.name,
 	}
+
+
+@eel.expose
+def calc_attack_damage(cards: List[Dict]) -> int:
+	''' Рассчитать силу атаки с комбо '''
+
+	card_objs = [card_dict_to_obj(card) for card in cards]
+	combo = get_combo(card_objs)
 
 
 def run_ui():
