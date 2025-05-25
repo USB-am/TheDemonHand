@@ -18,7 +18,7 @@
 				<div class="enemy-block">
 					<img src="../img/enemy/bison.png" class="enemy-image">
 					<span class="enemy-damage card-detail">3</span>
-					<span class="enemy-hp card-detail">280</span>
+					<span  id="enemy-hp" class="enemy-hp card-detail">err</span>
 				</div>
 
 			</div>
@@ -87,7 +87,7 @@
 
 				<p id="combo-title" class="combo-title">600<br>Combo title</p>
 
-				<div class="button">
+				<div class="button" onclick="attack()">
 					<img src="../img/table/attack_button.png" class="attack-button">
 				</div>
 
@@ -111,6 +111,10 @@
 	<script type="text/javascript">
 		const MAX_SELECTED = 5;
 		let selected_cards = [];
+
+		let ENEMY_HP = 280;
+		let enemy_hp_div = document.getElementById('enemy-hp');
+		enemy_hp_div.innerHTML = ENEMY_HP;
 
 		const updateSelection = (card) => {
 			card.classList.toggle('selected');
@@ -148,6 +152,19 @@
 			let cards_dict = convert_card_div_to_dict(selected_cards);
 			const combo = await eel.get_combo_title(cards_dict)();
 			combo_title_p.innerHTML = `${combo['power']}<br>${combo['title']}`;
+		}
+
+		async function attack() {
+			if (selected_cards.length == 0) {
+				alert("Для атаки необходимо выбрать от 1 до 5 карт!");
+				return 0
+			}
+
+			let cards_dict = convert_card_div_to_dict(selected_cards);
+			const damage = await eel.calc_attack_damage(cards_dict)();
+			console.log(damage);
+			ENEMY_HP -= damage;
+			enemy_hp_div.innerHTML = ENEMY_HP;
 		}
 	</script>
 
