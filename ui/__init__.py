@@ -62,6 +62,10 @@ def calc_attack_damage(cards: List[Dict]) -> int:
 
 	card_objs = [card_dict_to_obj(card) for card in cards]
 	combo = get_combo(card_objs)
+	damage = combo.power
+	damage += sum([card_dict_to_obj(card).power.value for card in cards])
+
+	return damage
 
 
 def run_ui():
