@@ -129,6 +129,11 @@ main {
 	right: 0;
 }
 
+.card-suit__img {
+	width: 30px;
+	height: 30px;
+}
+
 .buttons-continer {
 	position: absolute;
 	display: flex;
