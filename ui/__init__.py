@@ -52,6 +52,7 @@ def draw_card_from_deck() -> Dict:
 	return {
 		'img': f'../img/cards/{next_card.power.value}.png',
 		'power': next_card.power.name,
+		'power-value': next_card.power.value,
 		'suit': next_card.suit.name,
 		'suit-img': f'../img/suit/{next_card.suit.name}.png',
 	}
