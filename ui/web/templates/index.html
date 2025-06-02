@@ -15,7 +15,7 @@
 					<span class="attack-cooldown__num">3</span>
 				</div>
 
-				<div class="enemy-block">
+				<div id="enemy-block" class="enemy-block">
 					<img src="../img/enemy/bison.png" class="enemy-image">
 					<span class="enemy-damage card-detail">3</span>
 					<span  id="enemy-hp" class="enemy-hp card-detail">err</span>
@@ -162,9 +162,13 @@
 
 			let cards_dict = convert_card_div_to_dict(selected_cards);
 			const damage = await eel.calc_attack_damage(cards_dict)();
-			console.log(damage);
 			ENEMY_HP -= damage;
-			enemy_hp_div.innerHTML = ENEMY_HP;
+			if (ENEMY_HP > 0) {
+				enemy_hp_div.innerHTML = ENEMY_HP;
+			} else {
+				let enemy_block = document.getElementById('enemy-block');
+				enemy_block.style.display = 'none';
+			}
 		}
 	</script>
 
