@@ -3,7 +3,7 @@ from json import dumps
 
 import eel
 
-from combos import get_combo, Empty
+from combos import get_combo, Empty, Solo
 from cards import Power, Suit, Card
 from deck import Deck
 
@@ -65,7 +65,10 @@ def calc_attack_damage(cards: List[Dict]) -> int:
 	card_objs = [card_dict_to_obj(card) for card in cards]
 	combo = get_combo(card_objs)
 	damage = combo.power
-	damage += sum([card_dict_to_obj(card).power.value for card in cards])
+	if isinstance(combo, Solo):
+		damage += max(card_objs, key=lambda c: c.power.value).power.value
+	else:
+		damage += sum([card_dict_to_obj(card).power.value for card in cards])
 
 	return damage
 
