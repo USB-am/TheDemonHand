@@ -15,7 +15,7 @@ class Deck:
 		''' Достать карту из колоды '''
 
 		shuffle_deck = self.now_cards[:]
-		random.shuffle(self.all_cards)
+		random.shuffle(shuffle_deck)
 
 		for card in shuffle_deck:
 			self.now_cards.remove(card)
