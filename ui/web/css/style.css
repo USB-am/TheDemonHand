@@ -93,6 +93,12 @@ main {
 	justify-content: center;
 }
 
+.sorted-button {
+	display: flex;
+	cursor: pointer;
+	flex-direction: column;
+}
+
 .cards-list {
 	display: flex;
 	position: relative;
