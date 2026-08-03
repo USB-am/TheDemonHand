@@ -127,7 +127,8 @@ class DemonHandCombo(Combo):
     damage = 2000
     title = 'Рука демона'
 
-    def is_combo(self, cards: list[Card]) -> bool:
+    @staticmethod
+    def is_combo(cards: list[Card]) -> bool:
         if len(cards) < 5:
             return False
 
@@ -137,8 +138,10 @@ class DemonHandCombo(Combo):
 
 
 COMBO_PRIORITY = (
+    DemonHandCombo,
     MarchingHordeCombo,
     TetradCombo,
+    GrandWarhostCombo,
     HordeCombo,
     MarchCombo,
     TriadCombo,
