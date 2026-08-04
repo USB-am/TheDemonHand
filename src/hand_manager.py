@@ -2,6 +2,10 @@ from src.card import Card, Suit
 from src.combos import get_combo, Combo
 
 
+class HandOverflowError(Exception):
+    ''' Ошибка переполнения руки '''
+
+
 class DeckCards:
     def __init__(self):
         self.all_cards: list[Card] = []
@@ -29,6 +33,12 @@ class HandManager:
     def selected_combo(self) -> Combo:
         return get_combo(self._selected_cards)
 
+    def take_card(self, card: Card) -> None:
+        if len(self.cards) > 8:
+            raise HandOverflowError(f'Hand has 8 cards and con\'t take new!')
+        self.cards.append(card)
+
     def discard_card(self) -> None:
         for card in self._selected_cards:
             self._selected_cards.remove(card)
+            self.cards.remove(card)
