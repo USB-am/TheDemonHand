@@ -1,12 +1,110 @@
 <!DOCTYPE html>
-<html lang='ru'>
+<html lang="ru">
 <head>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>The Demon Hand</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Demon's Hand - UI</title>
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="/eel.js"></script>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+    <div class="game-board">
+        <div class="left-panel">
+            <div class="deck"></div>
+            <div class="token">2</div>
+        </div>
+
+        <div class="boss-card-wrapper">
+            <div class="boss-card">
+                <div class="boss-art"></div>
+                <div class="boss-stats">
+                    <span>24</span>
+                    <span>174</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-buttons">
+            <div class="ui-btn" title="Меню">⚙️</div>
+            <div class="ui-btn" title="Сортировка">123</div>
+        </div>
+
+        <div class="hand">
+            <div class="card" data-id="1">
+                <div class="card-art">👩‍🌾</div>
+                <div class="card-value">2 <span class="symbol">🌙</span></div>
+            </div>
+            <div class="card" data-id="2">
+                <div class="card-art">🏹</div>
+                <div class="card-value">10 <span class="symbol">🌙</span></div>
+            </div>
+            <div class="card" data-id="3">
+                <div class="card-art">🧙‍♂️</div>
+                <div class="card-value">≡ <span class="symbol">🌙</span></div>
+            </div>
+            <div class="card" data-id="4">
+                <div class="card-art">😈</div>
+                <div class="card-value">= <span class="symbol">🔥</span></div>
+            </div>
+            <div class="card" data-id="5">
+                <div class="card-art">👺</div>
+                <div class="card-value">8 <span class="symbol">☀️</span></div>
+            </div>
+            <div class="card" data-id="6">
+                <div class="card-art">👹</div>
+                <div class="card-value"><span class="symbol">☀️</span></div>
+            </div>
+            <div class="card" data-id="7">
+                <div class="card-art">🧛‍♀️</div>
+                <div class="card-value">= <span class="symbol">◆</span></div>
+            </div>
+            <div class="card" data-id="8">
+                <div class="card-art">🧔</div>
+                <div class="card-value">≡ <span class="symbol">◆</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const MAX_SELECTED = 5;
+        const cards = document.querySelectorAll('.card');
+
+        // Получить текущее количество выбранных карт
+        function getSelectedCount() {
+            return document.querySelectorAll('.card.selected').length;
+        }
+
+        // Получить массив data-id выбранных карт (удобно потом передавать в Python)
+        function getSelectedIds() {
+            return Array.from(document.querySelectorAll('.card.selected'))
+                        .map(card => card.dataset.id);
+        }
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const isSelected = card.classList.contains('selected');
+
+                if (isSelected) {
+                    // Снять выделение
+                    card.classList.remove('selected');
+                } else {
+                    // Добавить выделение, если не превышен лимит
+                    if (getSelectedCount() < MAX_SELECTED) {
+                        card.classList.add('selected');
+                    } else {
+                        // Можно заменить на свой toast / звук
+                        console.log('Максимум 5 карт');
+                        // card.style.animation = 'shake 0.3s'; // если захочешь тряску
+                    }
+                }
+
+                // Для отладки / передачи в Eel
+                console.log('Выбрано:', getSelectedIds());
+            });
+        });
+
+        // Пример: функция, которую можно вызвать из Python через eel
+        // eel.expose(getSelectedIds);
+    </script>
 </body>
 </html>
