@@ -1,4 +1,6 @@
-from src.card import Card, Suit
+import random
+
+from src.card import Card
 from src.combos import get_combo, Combo
 
 
@@ -13,7 +15,7 @@ class DeckCards:
 
     def get_card(self) -> Card:
         if not len(self.remaining_cards):
-            self.remaining_cards = self.all_cards.copy()
+            self.remaining_cards = random.sample(self.all_cards, len(self.all_cards))
 
         return self.remaining_cards.pop()
 
