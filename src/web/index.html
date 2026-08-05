@@ -68,8 +68,72 @@
     </div>
 
     <script>
+        const MAX_HAND = 8;
         const MAX_SELECTED = 5;
         const cards = document.querySelectorAll('.card');
+
+        function getCardsInHand() {
+            return document.querySelectorAll('.card').length;
+        }
+
+        function createCard(id, value, suit, face_path) {
+            let card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.id = id;
+            card.innerHTML = `
+                <!-- <div class="card-art">${value}</div> -->
+                <div class="card-value">≡ <span class="symbol">${suit}</span></div>
+            `;
+            Object.assign(card.style, {
+                backgroundImage: `url(${face_path})`,
+                backgroundSize: '100% 100%'
+            });
+            return card;
+        }
+
+        function handIsFilled() {
+            if (getCardsInHand() < MAX_HAND) {
+                let taked_card = eel.take_card()(function (taked_card) {
+                    let card = createCard(
+                        taked_card.id,
+                        taked_card.value,
+                        taked_card.suit,
+                        taked_card.face_path
+                    );
+
+                    card.addEventListener('click', () => {
+                        const isSelected = card.classList.contains('selected');
+
+                        if (isSelected) {
+                            // Снять выделение
+                            card.classList.remove('selected');
+                        } else {
+                            // Добавить выделение, если не превышен лимит
+                            if (getSelectedCount() < MAX_SELECTED) {
+                                card.classList.add('selected');
+                            } else {
+                                // Можно заменить на свой toast / звук
+                                console.log('Максимум 5 карт');
+                                // card.style.animation = 'shake 0.3s'; // если захочешь тряску
+                            }
+                        }
+
+                        // Для отладки / передачи в Eel
+                        console.log('Выбрано:', getSelectedIds());
+                    });
+
+                    document.querySelector('.hand').appendChild(card);
+                });
+            }
+        }
+        handIsFilled();
+        handIsFilled();
+        handIsFilled();
+        handIsFilled();
+        handIsFilled();
+        handIsFilled();
+        handIsFilled();
+        handIsFilled();
 
         // Получить текущее количество выбранных карт
         function getSelectedCount() {
@@ -82,31 +146,6 @@
                         .map(card => card.dataset.id);
         }
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const isSelected = card.classList.contains('selected');
-
-                if (isSelected) {
-                    // Снять выделение
-                    card.classList.remove('selected');
-                } else {
-                    // Добавить выделение, если не превышен лимит
-                    if (getSelectedCount() < MAX_SELECTED) {
-                        card.classList.add('selected');
-                    } else {
-                        // Можно заменить на свой toast / звук
-                        console.log('Максимум 5 карт');
-                        // card.style.animation = 'shake 0.3s'; // если захочешь тряску
-                    }
-                }
-
-                // Для отладки / передачи в Eel
-                console.log('Выбрано:', getSelectedIds());
-            });
-        });
-
-        // Пример: функция, которую можно вызвать из Python через eel
-        // eel.expose(getSelectedIds);
     </script>
 </body>
 </html>

@@ -9,8 +9,8 @@ class HandOverflowError(Exception):
 
 
 class DeckCards:
-    def __init__(self):
-        self.all_cards: list[Card] = []
+    def __init__(self, all_cards: list[Card]):
+        self.all_cards = all_cards
         self.remaining_cards: list[Card] = []
 
     def get_card(self) -> Card:
