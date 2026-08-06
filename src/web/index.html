@@ -35,7 +35,7 @@
         </div>
 
         <div class="buttons">
-            <button>Attack</button>
+            <button id="attack-btn">Attack</button>
             <button>Discard</button>
         </div>
 
@@ -138,6 +138,12 @@
         }
 
         fillHand();
+
+        document.querySelector('#attack-btn').addEventListener('click', () => {
+            eel.attack()(function (damage) {
+                console.log(damage);
+            });
+        });
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 import eel
 
 from src.session import Session
-from src.combos import get_combo
+from src.combos import get_combo, calculate_combo_damage
 
 
 eel.init('src/web')
@@ -31,6 +31,13 @@ def get_combo_damage() -> dict:
                 'damage': ''}
     return {'title': combo.title,
             'damage': combo.damage}
+
+
+@eel.expose
+def attack() -> int:
+    selected_cards = session.hand._selected_cards
+    damage = calculate_combo_damage(selected_cards)
+    return damage
 
 
 if __name__ == '__main__':
