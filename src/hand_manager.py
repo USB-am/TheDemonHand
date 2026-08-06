@@ -19,17 +19,19 @@ class DeckCards:
 
         return self.remaining_cards.pop()
 
+    def get_card_by_id(self, card_id: str) -> Card:
+        for card in self.all_cards:
+            if card.id == card_id:
+                return card
+
 
 class HandManager:
     def __init__(self):
         self.cards: list[Card] = []
         self._selected_cards: list[Card] = []
 
-    def select_card(self, card: Card) -> None:
-        if card in self._selected_cards:
-            self._selected_cards.remove(card)
-        else:
-            self._selected_cards.append(card)
+    def select_card(self, cards: list[Card]) -> None:
+        self._selected_cards = cards
 
     @property
     def selected_combo(self) -> Combo:

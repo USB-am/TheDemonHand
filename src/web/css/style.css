@@ -166,6 +166,66 @@ body {
     color: #ff8866;
 }
 
+.combo {
+    position: absolute;
+    bottom: 210px;          /* на одном уровне с кнопками */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    pointer-events: none;
+    z-index: 10;
+    min-width: 200px;
+    padding: 6px 20px;
+    background: rgba(20, 16, 12, 0.55);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    border: 1px solid rgba(180, 140, 100, 0.15);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.combo-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f0d080;
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(200, 160, 80, 0.25), 0 2px 4px rgba(0,0,0,0.8);
+}
+.combo-damage {
+    font-size: 30px;
+    font-weight: 800;
+    color: #ff6644;
+    text-shadow: 0 0 30px rgba(255,80,40,0.35), 0 0 60px rgba(255,50,20,0.15), 0 2px 4px rgba(0,0,0,0.8);
+    animation: damage-glow 1.8s ease-in-out infinite; /* пульсация урона */
+}
+
+.buttons {
+    position: absolute;
+    bottom: 210px;          /* ровно с .combo */
+    right: 40px;
+    display: flex;
+    gap: 14px;
+    z-index: 10;
+}
+.buttons button {
+    padding: 10px 28px;
+    min-width: 100px;
+    background: linear-gradient(145deg, #3a3028, #1e1814);
+    border: 2px solid #6a5040;
+    border-radius: 8px;
+    color: #e8d8c0;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+/* доп. акценты: Attack – золотой, Discard – красноватый */
+.buttons button:first-child { border-color: #b08040; color: #f0d080; }
+.buttons button:last-child  { border-color: #804040; color: #e08070; }
+/* hover-эффекты, лёгкий подъём и тени */
+
 .hand {
     position: absolute;
     bottom: 40px;

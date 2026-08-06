@@ -29,42 +29,17 @@
             <div class="ui-btn" title="Сортировка">123</div>
         </div>
 
-        <div class="hand">
-            <!--
-            <div class="card" data-id="1">
-                <div class="card-art">👩‍🌾</div>
-                <div class="card-value">2 <span class="symbol">🌙</span></div>
-            </div>
-            <div class="card" data-id="2">
-                <div class="card-art">🏹</div>
-                <div class="card-value">10 <span class="symbol">🌙</span></div>
-            </div>
-            <div class="card" data-id="3">
-                <div class="card-art">🧙‍♂️</div>
-                <div class="card-value">≡ <span class="symbol">🌙</span></div>
-            </div>
-            <div class="card" data-id="4">
-                <div class="card-art">😈</div>
-                <div class="card-value">= <span class="symbol">🔥</span></div>
-            </div>
-            <div class="card" data-id="5">
-                <div class="card-art">👺</div>
-                <div class="card-value">8 <span class="symbol">☀️</span></div>
-            </div>
-            <div class="card" data-id="6">
-                <div class="card-art">👹</div>
-                <div class="card-value"><span class="symbol">☀️</span></div>
-            </div>
-            <div class="card" data-id="7">
-                <div class="card-art">🧛‍♀️</div>
-                <div class="card-value">= <span class="symbol">◆</span></div>
-            </div>
-            <div class="card" data-id="8">
-                <div class="card-art">🧔</div>
-                <div class="card-value">≡ <span class="symbol">◆</span></div>
-            </div>
-            -->
+        <div class="combo">
+            <p class="combo-title"></p>
+            <p class="combo-damage"></p>
         </div>
+
+        <div class="buttons">
+            <button>Attack</button>
+            <button>Discard</button>
+        </div>
+
+        <div class="hand"></div>
     </div>
 
     <script>
@@ -82,7 +57,7 @@
             card.dataset.id = id;
             card.innerHTML = `
                 <!-- <div class="card-art">${value}</div> -->
-                <div class="card-value">≡ <span class="symbol">${suit}</span></div>
+                <div class="card-value">${value} <span class="symbol">${suit}</span></div>
             `;
             Object.assign(card.style, {
                 backgroundImage: `url(${face_path})`,
@@ -92,60 +67,77 @@
         }
 
         function handIsFilled() {
-            if (getCardsInHand() < MAX_HAND) {
-                let taked_card = eel.take_card()(function (taked_card) {
-                    let card = createCard(
-                        taked_card.id,
-                        taked_card.value,
-                        taked_card.suit,
-                        taked_card.face_path
-                    );
+            return (!(getCardsInHand() < MAX_HAND));
+        }
 
-                    card.addEventListener('click', () => {
-                        const isSelected = card.classList.contains('selected');
+        async function take_card() {
+            try {
+                const taked_card = await eel.take_card()();
+                // Если колода пуста – возвращаем false
+                if (!taked_card) return false;
 
-                        if (isSelected) {
-                            // Снять выделение
-                            card.classList.remove('selected');
+                const card = createCard(
+                    taked_card.id,
+                    taked_card.value,
+                    taked_card.suit,
+                    taked_card.face_path
+                );
+                card.addEventListener('click', () => {
+                    const isSelected = card.classList.contains('selected');
+
+                    if (isSelected) {
+                        // Снять выделение
+                        card.classList.remove('selected');
+                    } else {
+                        // Добавить выделение, если не превышен лимит
+                        if (getSelectedCount() < MAX_SELECTED) {
+                            card.classList.add('selected');
                         } else {
-                            // Добавить выделение, если не превышен лимит
-                            if (getSelectedCount() < MAX_SELECTED) {
-                                card.classList.add('selected');
-                            } else {
-                                // Можно заменить на свой toast / звук
-                                console.log('Максимум 5 карт');
-                                // card.style.animation = 'shake 0.3s'; // если захочешь тряску
-                            }
+                            // Можно заменить на свой toast / звук
+                            console.log('Максимум 5 карт');
+                            // card.style.animation = 'shake 0.3s'; // если захочешь тряску
                         }
+                    }
 
-                        // Для отладки / передачи в Eel
-                        console.log('Выбрано:', getSelectedIds());
-                    });
-
-                    document.querySelector('.hand').appendChild(card);
+                    // Для отладки / передачи в Eel
+                    console.log('Выбрано:', getSelectedIds());
                 });
+                document.querySelector('.hand').appendChild(card);
+                return true;
+            } catch (error) {
+                console.error('Ошибка при взятии карты:', error);
+                return false;
             }
         }
-        handIsFilled();
-        handIsFilled();
-        handIsFilled();
-        handIsFilled();
-        handIsFilled();
-        handIsFilled();
-        handIsFilled();
-        handIsFilled();
+
+        async function fillHand() {
+            while (getCardsInHand() < MAX_HAND) {
+                const success = await take_card();
+                if (!success) break;
+            }
+        }
 
         // Получить текущее количество выбранных карт
         function getSelectedCount() {
             return document.querySelectorAll('.card.selected').length;
         }
 
-        // Получить массив data-id выбранных карт (удобно потом передавать в Python)
-        function getSelectedIds() {
-            return Array.from(document.querySelectorAll('.card.selected'))
-                        .map(card => card.dataset.id);
+        function update_combo_information() {
+            eel.get_combo_damage()(function (combo) {
+                document.querySelector('.combo-title').innerHTML = combo.title;
+                document.querySelector('.combo-damage').innerHTML = combo.damage;
+            })
         }
 
+        // Получить массив data-id выбранных карт (удобно потом передавать в Python)
+        function getSelectedIds() {
+            let card_ids = Array.from(document.querySelectorAll('.card.selected'))
+                                .map(card => card.dataset.id);
+            eel.update_selected_cards(card_ids);
+            update_combo_information();
+        }
+
+        fillHand();
     </script>
 </body>
 </html>
