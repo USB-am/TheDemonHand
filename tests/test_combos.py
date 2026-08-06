@@ -6,12 +6,17 @@ from src.combos import (get_combo, DemonHandCombo, MarchingHordeCombo,
                         TriadCombo, DyadSetCombo, DyadCombo, SoloCombo)
 
 
-def make_cards(values, suits):
-    return [Card(v, s) for v, s in zip(values, suits)]
-
-
 def card(value, suit):
-    return Card(value, Suit[suit.upper()])
+    return Card(
+        id=f'{value}-{suit}',
+        value=value,
+        suit=Suit[suit.value.upper()],
+        face_path=''
+    )
+
+
+def make_cards(values, suits):
+    return [card(v, s) for v, s in zip(values, suits)]
 
 
 COMBO_TEST_CASES = [
