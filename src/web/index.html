@@ -16,10 +16,10 @@
 
         <div class="boss-card-wrapper">
             <div class="boss-card">
-                <div class="boss-art"></div>
+                <!-- <div class="boss-art"></div> -->
                 <div class="boss-stats">
-                    <span>24</span>
-                    <span>174</span>
+                    <span class="boss-base-damage"></span>
+                    <span class="boss-hp"></span>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
 
         <div class="buttons">
             <button id="attack-btn">Attack</button>
-            <button>Discard</button>
+            <button id="discard-btn">Discard</button>
         </div>
 
         <div class="hand"></div>
@@ -117,7 +117,6 @@
             }
         }
 
-        // Получить текущее количество выбранных карт
         function getSelectedCount() {
             return document.querySelectorAll('.card.selected').length;
         }
@@ -129,7 +128,6 @@
             })
         }
 
-        // Получить массив data-id выбранных карт (удобно потом передавать в Python)
         function getSelectedIds() {
             let card_ids = Array.from(document.querySelectorAll('.card.selected'))
                                 .map(card => card.dataset.id);
@@ -137,13 +135,31 @@
             update_combo_information();
         }
 
+        function updateEnemy() {
+            eel.update_enemy()(function (enemy) {
+                console.log(enemy);
+                document.querySelector('.boss-base-damage').innerHTML = enemy.damage;
+                document.querySelector('.boss-hp').innerHTML = enemy.hp;
+                Object.assign(document.querySelector('.boss-card').style, {
+                    backgroundImage: `url(${enemy.image})`,
+                    backgroundSize: '100% 100%'
+                });
+            });
+        }
+
         fillHand();
+        updateEnemy();
 
         document.querySelector('#attack-btn').addEventListener('click', () => {
             eel.attack()(function (damage) {
                 console.log(damage);
+                updateEnemy();
             });
         });
+        document.querySelector('#discard-btn').addEventListener('click', () => {
+            
+        });
+
     </script>
 </body>
 </html>

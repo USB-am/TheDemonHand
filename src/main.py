@@ -37,7 +37,20 @@ def get_combo_damage() -> dict:
 def attack() -> int:
     selected_cards = session.hand._selected_cards
     damage = calculate_combo_damage(selected_cards)
+    session.enemy.take_damage(damage)
     return damage
+
+
+@eel.expose
+def update_enemy() -> dict:
+    enemy = session.enemy
+    return {
+        'name': enemy.name,
+        'max_hp': enemy.max_hp,
+        'hp': enemy.hp,
+        'damage': enemy.base_damage,
+        'image': enemy.image,
+    }
 
 
 if __name__ == '__main__':
