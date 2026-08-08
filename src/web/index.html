@@ -150,14 +150,22 @@
         fillHand();
         updateEnemy();
 
+        function removeSelectedCard() {
+            // const selected_cards = document.querySelectorAll('.card.selected');
+            document.querySelectorAll('.card.selected').forEach(card => card.remove());
+        }
+
         document.querySelector('#attack-btn').addEventListener('click', () => {
             eel.attack()(function (damage) {
                 console.log(damage);
+                removeSelectedCard();
                 updateEnemy();
+                fillHand();
             });
         });
         document.querySelector('#discard-btn').addEventListener('click', () => {
-            
+            removeSelectedCard();
+            fillHand();
         });
 
     </script>
